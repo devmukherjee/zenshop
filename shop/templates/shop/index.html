@@ -108,9 +108,25 @@ $(document).on('click','.atc',function(){
 
     console.log(cart);
     localStorage.setItem('cart',JSON.stringify(cart));
-    document.getElementById('cart').innerHTML= "Cart(" + Object.keys(cart).length + ")";
+    LoadCart_popover(cart)
+    // document.getElementById('cart').innerHTML= "Cart(" + Object.keys(cart).length + ")";
 });
-document.getElementById('cart').setAttribute('data-bs-content',"<h2> this is my cart </h2>");
+function LoadCart_popover(cart){
+    var cartstring="";
+    cartstring+= "<h5> this is my cart </h5>";
+    cartindex= 1
+    for (var x in cart){
+        cartstring+= "<br>" + cartindex + "<br>"
+        cartstring += document.getElementById("nm_"+ x).innerHTML+ "<br>QTy:"+ cart[x];
+        cartindex+=1;
+    
+    }
+    elem= document.getElementById('cart')
+    elem.setAttribute('data-bs-content',cartstring);
+    var popover = new bootstrap.Popover(elem)
+    popover.enable();
+}
+
 var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
 var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
   var popover= new bootstrap.Popover(popoverTriggerEl)
