@@ -20,7 +20,7 @@
                         <a class="nav-link" href="#">Features</a>
                       </li>
                       <li class="nav-item">
-                        <button type="button" id= "cart" class="btn btn-secondary" data-bs-html= true data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="This is new value" data-bs-trigger="hover">
+                        <button type="button" id= "cart" class="btn btn-secondary" data-bs-html= true data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="This is new value" data-bs-trigger="click">
                             Cart(0)
                           </button>
                       </li>
@@ -109,21 +109,23 @@ $(document).on('click','.atc',function(){
     console.log(cart);
     localStorage.setItem('cart',JSON.stringify(cart));
     LoadCart_popover(cart)
-    // document.getElementById('cart').innerHTML= "Cart(" + Object.keys(cart).length + ")";
+    document.getElementById('cart').innerHTML= "Cart(" + Object.keys(cart).length + ")";
 });
 function LoadCart_popover(cart){
-    var cartstring="";
+    var cartstring='';
     cartstring+= "<h5> this is my cart </h5>";
     cartindex= 1
     for (var x in cart){
-        cartstring+= "<br>" + cartindex + "<br>"
-        cartstring += document.getElementById("nm_"+ x).innerHTML+ "<br>QTy:"+ cart[x];
+        cartstring+= cartindex 
+        cartstring += "\t"+ document.getElementById("nm_"+ x).innerHTML+ "\t QTy: "+ cart[x] + "</br>";
         cartindex+=1;
-    
+        
     }
+    cartstring += '<a href="#" class= "btn btn-warning" id="checkout">Checkout</a>'
     elem= document.getElementById('cart')
     elem.setAttribute('data-bs-content',cartstring);
-    var popover = new bootstrap.Popover(elem)
+    const popover = new bootstrap.Popover(elem,{
+  container: 'body'});
     popover.enable();
 }
 
