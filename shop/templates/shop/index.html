@@ -100,10 +100,15 @@ $(document).on('click','.atc',function(){
     console.log(item_id);
 
     if(cart[item_id]!= undefined){
-        cart[item_id]+= 1;
+        quantity= cart[item_id][0] + 1;
+        cart[item_id][0]= quantity;
+        name= document.getElementById("nm_"+ item_id).innerHTML;
+        cart[item_id][1]= name;
     }
     else{
-        cart[item_id]= 1;
+        quantity= 1;
+        name= document.getElementById("nm_"+ item_id).innerHTML;
+        cart[item_id]=[quantity,name]
     }
 
     console.log(cart);
@@ -116,12 +121,12 @@ function LoadCart_popover(cart){
     cartstring+= "<h5> this is my cart </h5>";
     cartindex= 1
     for (var x in cart){
-        cartstring+= cartindex 
-        cartstring += "\t"+ document.getElementById("nm_"+ x).innerHTML+ "\t QTy: "+ cart[x] + "</br>";
+        cartstring+= cartindex; 
+        cartstring += "\t"+ document.getElementById("nm_"+ x).innerHTML+ "\t QTy: "+ cart[x][0] + "</br>";
         cartindex+=1;
         
     }
-    cartstring += '<a href="#" class= "btn btn-warning" id="checkout">Checkout</a>'
+    cartstring += '<a href="/checkout" class= "btn btn-warning" id="checkout">Checkout</a>'
     elem= document.getElementById('cart')
     elem.setAttribute('data-bs-content',cartstring);
     const popover = new bootstrap.Popover(elem,{
