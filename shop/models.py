@@ -10,7 +10,7 @@ class Product(models.Model):
     description= models.TextField(verbose_name="Product Description")
     image= models.CharField(verbose_name="Product Image",max_length= 300) 
 
-class Orders(models.Model):
+class Order(models.Model):
     items= models.CharField(max_length=1000)
     email= models.CharField(max_length=500)
     address= models.CharField(max_length=1000)
@@ -18,4 +18,5 @@ class Orders(models.Model):
     state= models.CharField(max_length=200)
     zipcode= models.CharField(max_length=100)
     name= models.CharField(max_length=200)
+   
     
