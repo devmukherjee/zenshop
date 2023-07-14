@@ -1,4 +1,5 @@
 {% extends 'shop/base.html' %}
+{% load static %}
 {% block body %}
 <div class="container">
   <div class="row">
@@ -10,7 +11,7 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <ul class="list-group" id="item_list">
+      <ul class="list-group rounded" id="item_list">
         <script type="text/javascript">
           if (localStorage.getItem('cart') == null) {
             var cart = {};
@@ -20,18 +21,18 @@
 
 
           }
-          let total=0;
+          let total = 0;
           for (item in cart) {
             let name = cart[item][1];
             let quantity = cart[item][0];
-            let price= cart[item][2];
-            total= total + price
+            let price = cart[item][2];
+            total = total + price
             itemString = `<li class= "list-group-item d-flex justify-content-between align-items-center">${name} <span class="badge bg-primary">${quantity}</span><span class= "badge bg-primary">${price}</span></li>`;
-            
+
             $('#item_list').append(itemString);
             $('#items').val(JSON.stringify(cart));
           }
-          totalString= `<li class= "list-group-item d-flex justify-content-between align-items-center"><b>Your Total is</b> <span><b> ${total}</b></span></li>`
+          totalString = `<li class= "list-group-item d-flex justify-content-between align-items-center"><b>Your Total is</b> <span><b> ${total}</b></span></li>`
           $('#item_list').append(totalString);
           $('#total').val(total);
         </script>
@@ -42,62 +43,11 @@
         <div class="container">
           <main>
             <div class="py-5 text-center">
-              <img class="d-block mx-auto mb-4" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72"
-                height="57">
+              <img class="d-block mx-auto mb-4" src="{% static 'shop/logo.jpg' %}" alt="" width="72" height="57">
               <h2>Checkout form</h2>
-              <p class="lead">Below is an example form built entirely with Bootstrap’s form controls. Each required form
-                group has a validation state that can be triggered by attempting to submit the form without completing
-                it.</p>
             </div>
 
             <div class="row g-5">
-              <div class="col-md-5 col-lg-4 order-md-last">
-                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                  <span class="text-primary">Your cart</span>
-                  <span class="badge bg-primary rounded-pill">3</span>
-                </h4>
-                <ul class="list-group mb-3">
-                  <li class="list-group-item d-flex justify-content-between lh-sm">
-                    <div>
-                      <h6 class="my-0">Product name</h6>
-                      <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">$12</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between lh-sm">
-                    <div>
-                      <h6 class="my-0">Second product</h6>
-                      <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">$8</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between lh-sm">
-                    <div>
-                      <h6 class="my-0">Third item</h6>
-                      <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">$5</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between bg-light">
-                    <div class="text-success">
-                      <h6 class="my-0">Promo code</h6>
-                      <small>EXAMPLECODE</small>
-                    </div>
-                    <span class="text-success">−$5</span>
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between">
-                    <span>Total (USD)</span>
-                    <strong>$20</strong>
-                  </li>
-                </ul>
-
-                <form class="card p-2">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Promo code">
-                    <button type="submit" class="btn btn-secondary">Redeem</button>
-                  </div>
-                </form>
-              </div>
               <div class="col-md-7 col-lg-8">
                 <h4 class="mb-3">Billing address</h4>
                 <form class="needs-validation" method="POST" novalidate="">
@@ -123,7 +73,8 @@
 
                     <div class="col-12">
                       <label for="address" class="form-label">Address</label>
-                      <input type="text" class="form-control" id="address" name="address" placeholder="1234 Main St" required="">
+                      <input type="text" class="form-control" id="address" name="address" placeholder="1234 Main St"
+                        required="">
                       <div class="invalid-feedback">
                         Please enter your shipping address.
                       </div>
@@ -131,8 +82,7 @@
 
                     <div class="col-md-5">
                       <label for="city" class="form-label">City</label>
-                      <input type="text" class="form-control" id="address" placeholder="London" name="city"
-                        required="">
+                      <input type="text" class="form-control" id="address" placeholder="London" name="city" required="">
                       <div class="invalid-feedback">
                         Please select a valid country.
                       </div>
@@ -226,33 +176,68 @@
 
                   <div class="col-md-3">
                     <label for="total" class="form-label">Amount to be paid</label>
-                    <input type="text" readonly="" class="form-control" id="total" name="name" placeholder="" required="">
+                    <input type="text" readonly="" class="form-control" id="total" name="name" placeholder=""
+                      required="">
                     <div class="invalid-feedback">
                       Security code required
                     </div>
                   </div>
-                </div>
-                  <hr class="my-4">
-
-                  <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
-                </form>
               </div>
+              <hr class="my-4">
+
+              <button class="w-100 btn btn-primary btn-lg" id= "payButton" type="submit">Continue to checkout</button>
+              </form>
             </div>
-          </main>
-
-          <footer class="my-5 pt-5 text-muted text-center text-small">
-            <p class="mb-1">© 2017–2021 Company Name</p>
-            <ul class="list-inline">
-              <li class="list-inline-item"><a href="#">Privacy</a></li>
-              <li class="list-inline-item"><a href="#">Terms</a></li>
-              <li class="list-inline-item"><a href="#">Support</a></li>
-            </ul>
-          </footer>
         </div>
+        </main>
+        <script>
+          // Function to handle the payment
+          function handlePayment() {
+            var options = {
+              key: 'YOUR_RAZORPAY_API_KEY', // Replace with your actual RazorPay API key
+              amount: total, // The amount in the smallest currency unit (e.g., paise or cents)
+              currency: 'INR', // The 3-letter ISO currency code
+              name: 'Zenshop', // Your store name
+              description: 'Purchase Description', // Purchase description
+              image: 'https://example.com/your_logo.png', // URL of your store logo (optional)
+              handler: function (response) {
+                // Handle the successful payment response here
+                alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
+              },
+              prefill: {
+                name: 'John Doe',
+                email: 'john@example.com'
+              },
+              notes: {
+                address: '123, ABC Street, City'
+              },
+              theme: {
+                color: '#F37254' // Customize the color of the RazorPay button (optional)
+              }
+            };
 
+            var razorpay = new Razorpay(options);
+            razorpay.open();
+          }
 
-      </ul>
+          // Attach the event listener to the button
+          var payButton = document.getElementById('payButton');
+          payButton.addEventListener('click', handlePayment);
+        </script>
+
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+          <p class="mb-1">© 2017–2021 Company Name</p>
+          <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Privacy</a></li>
+            <li class="list-inline-item"><a href="#">Terms</a></li>
+            <li class="list-inline-item"><a href="#">Support</a></li>
+          </ul>
+        </footer>
     </div>
+
+
+    </ul>
   </div>
+</div>
 </div>
 {% endblock %}
