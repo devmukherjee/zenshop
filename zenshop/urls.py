@@ -18,10 +18,13 @@ from django.contrib import admin
 from django.urls import path
 from shop import views as shop_views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',shop_views.index,name= "index"),
     path('items/<int:id>',shop_views.detail,name= "detail"),
-    path('checkout/',shop_views.checkout,name="checkout")
+    path('checkout/',shop_views.checkout,name="checkout"),
+    path('api/key', shop_views.get_razorpay_api_key, name='razorpay_api_key'),
+
 ]
   

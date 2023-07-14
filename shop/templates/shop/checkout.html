@@ -185,40 +185,51 @@
               </div>
               <hr class="my-4">
 
-              <button class="w-100 btn btn-primary btn-lg" id= "payButton" type="submit">Continue to checkout</button>
+              <button class="w-100 btn btn-primary btn-lg" id="payButton" type="submit">Continue to checkout</button>
               </form>
             </div>
         </div>
         </main>
         <script>
-          // Function to handle the payment
+          // Function to handle the paymen
           function handlePayment() {
-            var options = {
-              key: 'YOUR_RAZORPAY_API_KEY', // Replace with your actual RazorPay API key
-              amount: total, // The amount in the smallest currency unit (e.g., paise or cents)
-              currency: 'INR', // The 3-letter ISO currency code
-              name: 'Zenshop', // Your store name
-              description: 'Purchase Description', // Purchase description
-              image: 'https://example.com/your_logo.png', // URL of your store logo (optional)
-              handler: function (response) {
-                // Handle the successful payment response here
-                alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
-              },
-              prefill: {
-                name: 'John Doe',
-                email: 'john@example.com'
-              },
-              notes: {
-                address: '123, ABC Street, City'
-              },
-              theme: {
-                color: '#F37254' // Customize the color of the RazorPay button (optional)
-              }
-            };
+            // Make an API call to retrieve the API key
+            fetch('/api/key')
+              .then(response => response.json())
+              .then(data => {
+                var options = {
+                  key: data.apikey, // Replace with your actual RazorPay API key
+                  amount: total, // The amount in the smallest currency unit (e.g., paise or cents)
+                  currency: 'INR', // The 3-letter ISO currency code
+                  name: 'Zenshop', // Your store name
+                  description: 'Purchase Description', // Purchase description
+                  image: 'https://example.com/your_logo.png', // URL of your store logo (optional)
+                  handler: function (response) {
+                    // Handle the successful payment response here
+                    alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
+                  },
+                  prefill: {
+                    name: 'John Doe',
+                    email: 'john@example.com'
+                  },
+                  notes: {
+                    address: '123, ABC Street, City'
+                  },
+                  theme: {
+                    color: '#F37254' // Customize the color of the RazorPay button (optional)
+                  }
+                }
 
-            var razorpay = new Razorpay(options);
-            razorpay.open();
+                  var razorpay = new Razorpay(options);
+                  razorpay.open();
+                })
+              .catch(error => {
+                console.error('Failed to retrieve the API key:', error);
+              });
           }
+
+          // ...
+
 
           // Attach the event listener to the button
           var payButton = document.getElementById('payButton');

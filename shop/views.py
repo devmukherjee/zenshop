@@ -2,6 +2,14 @@ from django.shortcuts import render
 from .models import Product,Order
 from django.core.paginator import Paginator
 # Create your views here.
+from django.http import JsonResponse
+from django.views.decorators.http import require_GET
+from decouple import config
+
+@require_GET
+def get_razorpay_api_key(request):
+    api_key = config('RAZORPAY_API_KEY')
+    return JsonResponse({'api_key': api_key})
 
 def index(request):
     product_objects= Product.objects.all()
