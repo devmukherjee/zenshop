@@ -14,7 +14,7 @@ from pathlib import Path
 from decouple import config
 
 # Load environment variables from the .env file
-config.load_dotenv()
+# config._load
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
